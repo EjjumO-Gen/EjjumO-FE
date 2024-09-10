@@ -1,4 +1,13 @@
 @font-face {
-    font-family: "Galmuri9", sans-serif;
+    font-family: "Galmuri", sans-serif;
     src: local(), url(../assets/font/Galmuri9.woff2) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Galmuri", sans-serif;
+    src: local(), url(../assets/font/Galmuri11-Bold.woff2) format("woff2");
+    font-weight: 600;
+    font-style: normal;
 }
