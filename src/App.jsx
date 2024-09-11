@@ -7,6 +7,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-grow: 1;
   margin-top: 50px;
+  width: 100%;
 `;
 
 function App() {
