@@ -1,3 +1,4 @@
+// ListSection.jsx
 import React from "react";
 import styled from "styled-components";
 import ArrowIcon from '../assets/images/arrow_forward_ios.png'
@@ -20,7 +21,6 @@ const Arrow = styled.img`
 const ItemsContainer = styled.div`
     display: flex;
     overflow-x: scroll;
-
 `
 
 const ListSection = ({ title, items }) => {
@@ -31,9 +31,9 @@ const ListSection = ({ title, items }) => {
                 <Arrow src={ArrowIcon} alt="Forward Arrow Icon" />
             </Title>
             <ItemsContainer>
-            {items.map((item, index) => (
-                <ListItem key={index} {...item} />
-            ))}
+                {items.map((item) => (
+                    <ListItem key={item.id} {...item} />
+                ))}
             </ItemsContainer>
         </SectionContainer>
     );
