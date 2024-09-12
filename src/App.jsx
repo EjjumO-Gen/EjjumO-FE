@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import MainPage from "./pages/main/MainPage";
 import Header from './components/layout/Header';
-import ViewPlaylistPage from './pages/playlist/\bViewPlaylistPage';
+import ViewPlaylistPage from './pages/playlist/ViewPlaylistPage';
 
 const ContentWrapper = styled.div`
   display: flex;
