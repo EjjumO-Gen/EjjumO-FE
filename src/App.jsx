@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import MainPage from "./pages/main/MainPage";
 import Header from './components/layout/Header';
+import ViewPlaylistPage from './pages/playlist/\bViewPlaylistPage';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -17,6 +18,7 @@ function App() {
       <ContentWrapper>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/playlist/:playlistId" element={<ViewPlaylistPage />} />
         </Routes>
       </ContentWrapper>
     </BrowserRouter>
