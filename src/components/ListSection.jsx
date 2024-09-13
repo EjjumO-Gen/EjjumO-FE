@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import ArrowIcon from '../assets/images/arrow_forward_ios.png'
 import ListItem from "./ListItem";
+import UserItem from "./UserItem";
 
 const SectionContainer = styled.div`
     margin-top: 32px;
@@ -23,7 +24,10 @@ const ItemsContainer = styled.div`
     overflow-x: scroll;
 `
 
-const ListSection = ({ title, items }) => {
+
+
+const ListSection = ({ title, data, playList }) => {
+
     return (
         <SectionContainer>
             <Title>
@@ -31,9 +35,29 @@ const ListSection = ({ title, items }) => {
                 <Arrow src={ArrowIcon} alt="Forward Arrow Icon" />
             </Title>
             <ItemsContainer>
-                {items.map((item) => (
-                    <ListItem key={item.id} {...item} />
-                ))}
+            {playList ? 
+        
+                data.map(item => {
+                    return (<ListItem
+                        key={item.playlistId}
+                        playlistId={item.playlistId}
+                        playlistName={item.playlistName}
+                        thumbnail={item.thumbnail}
+                        thumbs={item.thumbs}
+                    />)
+                })
+            
+             : 
+            
+                data.map(item => {
+                    return (<UserItem
+                        key={item.userId}
+                        userId={item.userId}
+                        userName={item.userName}
+                        profilePic={item.profilePic}
+                        thumbs={item.thumbs}
+                    />)
+                })}
             </ItemsContainer>
         </SectionContainer>
     );
