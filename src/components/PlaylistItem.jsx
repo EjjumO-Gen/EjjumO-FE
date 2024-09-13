@@ -10,6 +10,7 @@ const PlaylistItemContainer = styled.div`
     flex-direction: column;
     margin-top: 32px;
     margin-bottom: 32px;
+    align-items: center;
 `
 const PlaylistInfoContainer = styled.div`
     display: flex;
@@ -22,6 +23,7 @@ const IconContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    width: 100%;
 `
 const UserName = styled.span`
     font-size: 16px;
@@ -39,52 +41,52 @@ const PlaylistName = styled.span`
     font-size: 24px;
     text-align: center;
 `
-const PlaylistDesc = styled.span`
+const Description = styled.span`
     font-size: 16px;
     text-align: center;
 `
-const LikeCount = styled.span`
+const ThumbsCount = styled.span`
     font-size: 16px;
     color: white;
     margin-left: 8px;
 `
-const LikeContainer = styled.div`
+const ThumbsContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 8px;
 `
-const ChatCount = styled.span`
+const CommentsCount = styled.span`
     font-size: 16px;
     color: white;
     margin-left: 8px;
 `
-const ChatContainer = styled.div`
+const CommentsContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 8px;
 `
 
-const PlaylistItem = ({ userName, playlistImg, playlistName, playlistDesc, likeCount, chatCount }) => {
+const PlaylistItem = ({ userName, thumbnail, playlistName, description, thumbs, comments }) => {
     return (
         <PlaylistItemContainer>
             <UserName>{userName}</UserName>
-            <PlaylistImg />
+            <PlaylistImg src={thumbnail} />
             <PlaylistInfoContainer>
                 <PlaylistName>{playlistName}</PlaylistName>
-                <PlaylistDesc>{playlistDesc}</PlaylistDesc>
+                <Description>{description}</Description>
             </PlaylistInfoContainer>
             <IconContainer>
-                <LikeContainer>
+                <ThumbsContainer>
                     <ThumbsFillOffSvg />
-                    <LikeCount>{likeCount}</LikeCount>
-                </LikeContainer>
+                    <ThumbsCount>{thumbs}</ThumbsCount>
+                </ThumbsContainer>
                 <PlayCircleSvg />
-                <ChatContainer>
+                <CommentsContainer>
                     <ChatBubbleSvg />
-                    <ChatCount>{chatCount}</ChatCount>
-                </ChatContainer>
+                    <CommentsCount>{comments}</CommentsCount>
+                </CommentsContainer>
             </IconContainer>
         </PlaylistItemContainer>
     );

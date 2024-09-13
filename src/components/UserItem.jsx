@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ThumbsUpSvg from "../assets/images/thumb_up.svg?react";
 import { useNavigate } from "react-router-dom";
 
-const ListItemContainer = styled.div`
+const UserItemContainer = styled.div`
     display: flex;
     margin-bottom: 8px;
     flex-direction: column;
@@ -14,13 +14,14 @@ const ListItemContainer = styled.div`
     cursor: pointer;
     width: 100px;
 `
-const Thumbnail = styled.img`
+const ProfilePic = styled.img`
     width: 100px;
     height: 100px;
     background-color: gray;
     margin-top: 16px;
+    border-radius: 50%;
 `
-const PlaylistName = styled.span`
+const UserName = styled.span`
     font-size: 16px;
     color: white;
     margin-top: 16px;
@@ -41,23 +42,23 @@ const ThumbsContainer = styled.div`
     align-items: center;
     margin-top: 8px;
 `
-const ListItem = ({ playlistId, thumbnail, playlistName, thumbs }) => {
-    const navigate = useNavigate();
+const UserItem = ({ userId, userName, profilePic, thumbs }) => {
+    // const navigate = useNavigate();
 
-    const handleItemClick = () => {
-        navigate(`/playlist/${playlistId}`);
-    };
+    // const handleItemClick = () => {
+    //     navigate(`/playlist/${playlistId}`);
+    // };
 
     return (
-        <ListItemContainer onClick={handleItemClick}>
-            <Thumbnail src={thumbnail} />
-            <PlaylistName>{playlistName}</PlaylistName>
+        <UserItemContainer>
+            <ProfilePic src={profilePic} />
+            <UserName >{userName}</UserName>
             <ThumbsContainer>
                 <ThumbsUpSvg />
                 <Thumbs>{thumbs}</Thumbs>
             </ThumbsContainer>
-        </ListItemContainer>
+        </UserItemContainer>
     );
 };
 
-export default ListItem;
+export default UserItem;

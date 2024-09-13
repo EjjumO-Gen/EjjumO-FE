@@ -1,5 +1,5 @@
 import React from "react";
-import { useLinkClickHandler, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SongItem from "../../components/SongItem";
 import PlaylistItem from "../../components/PlaylistItem";
 import styled from "styled-components";
@@ -25,21 +25,34 @@ const SongContainer = styled.div`
 const ViewPlaylistPage = () => {
     const params = useParams();
 
-    const playlistData =
-      { userName: "유저 이름", playlistName: "플리 이름", playlistDesc: "간단한 설명 한 줄~^^", likeCount: "15", chatCount: "15" };
-
-    const songData = [
-      { title: "노래 제목1", artist: "가수1", duration: "3:45" },
-      { title: "노래 제목2", artist: "가수2", duration: "4:20" },
-      { title: "노래 제목3", artist: "가수3", duration: "2:55" },
-      { title: "노래 제목4", artist: "가수4", duration: "3:45" },
-      { title: "노래 제목5", artist: "가수5", duration: "4:20" },
-      { title: "노래 제목6", artist: "가수6", duration: "2:55" },
-      { title: "노래 제목7", artist: "가수7", duration: "3:45" },
-      { title: "노래 제목8", artist: "가수8", duration: "4:20" },
-      { title: "노래 제목9", artist: "가수9", duration: "2:55" },
-      { title: "노래 제목10", artist: "가수10", duration: "2:55" }
-    ];
+    const playlistData = {
+      "playlistId": 1, // 플리 id
+      "userId": 1, // 작성자 user id
+      "userName": "최우진",
+      "playlistName": "노동요근본",
+      "description": "그때, 그시절, 추억의 노래,,,",
+      "thumbs": 100,
+      "comments": 150,
+      "isThumbsup": false,
+      "songs": [
+        {
+          "songId": 1,
+          "title": "후유증",
+          "artist": "제국의아이들",
+          "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
+          "videoId": "52IYtmlSqAQ",
+          "duration": "3:14",
+        },
+        {
+          "songId": 2,
+          "title": "바람의 유령",
+          "artist": "제국의아이들",
+          "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
+          "videoId": "ie_uVB3cUpE",
+          "duration": "3:31",
+        },
+      ]
+    };
 
     return (
         // <span>{params.playlistId}</span>
@@ -48,18 +61,21 @@ const ViewPlaylistPage = () => {
             <PlaylistItem 
               userName={playlistData.userName}
               playlistName={playlistData.playlistName}
-              playlistDesc={playlistData.playlistDesc}
-              likeCount={playlistData.likeCount}
-              chatCount={playlistData.chatCount}
+              description={playlistData.description}
+              thumbs={playlistData.thumbs}
+              comments={playlistData.comments}
+              thumbnail={playlistData.songs[0].thumbnail}
             />
           </PlayListWrapper>
           <SongContainer>
-          {songData.map((item, index) => (
+          {playlistData.songs.map((item) => (
             <SongItem 
-              key={index}
+              key={item.songId}
               title={item.title}
               artist={item.artist}
               duration={item.duration}
+              thumbnail={item.thumbnail}
+              videoId={item.videoId}
             />
           ))}
           </SongContainer>
