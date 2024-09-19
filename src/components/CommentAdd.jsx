@@ -32,35 +32,42 @@ const CommentInputContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: ${props => props.$isTyping ? '#FFFFFF' : '#222222'};
-    border: ${props => props.$isTyping ?  '2px solid #11FFDA' : '2px solid white'};
+    background-color: #222222;
+    border: 2px solid white;
+
+    &:focus-within {
+        background-color: white;
+        border: 2px solid #11FFDA;
+    }
 `
 const CommentInput = styled.input`
-    font-family: "Galmuri11";
-    color: gray;
+    font-family: "Galmuri9";
+    color: white;
     font-size: 16px;
-    margin-left: 16px;
+    width: 100%;
     border: none;
     outline: none;
     background-color: transparent;
-    color: ${props => props.$isTyping ? 'black' : 'gray'};
+
+    &:focus {
+        color: black;
+    }
 `
 
 const CommentAdd = ({ profilePic }) => {
     const [ isTyping, setIsTyping ] = useState(false);
 
-    const HandleInputChange = (event) => {
+    const handleInputChange = (event) => {
         setIsTyping(event.target.value.length > 0);
     };
 
     return (
         <CommentContainer>
             <ProfilePic src={profilePic}/>
-            <CommentInputContainer $isTyping={isTyping}>
+            <CommentInputContainer>
                 <CommentInput 
                     placeholder="댓글 추ㄱr"
-                    onChange={HandleInputChange}
-                    $isTyping={isTyping}
+                    onChange={handleInputChange}
                 />
                 {isTyping ? <ArrowCircleUpGreenSvg style={{ marginRight: '12px' }}/>
                            : <ArrowCircleUpSvg style={{ marginRight: '12px' }}/>}
