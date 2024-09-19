@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const myplaylistData = {
-    "myplaylist": [
+    "myPlaylists": [
         {
             "playlistId": 1, // 플리 id
             "playlistName": "노동요근본_니들이 케이팝을 알어~?!",
@@ -48,7 +48,7 @@ const myplaylistData = {
 };
 
 const popularplaylistData = {
-	"popularplaylist": [
+	"popularPlaylists": [
 		{
             "playlistId": 1, // 플리 id
             "playlistName": "노동요근본",
@@ -121,8 +121,8 @@ const MainPage = () => {
     return (
         <Container>
             <img src={MainBanner} alt="Main Banner" style={{ width: '100%', height: 'auto' }} />
-            <ListSection title="내 플레이리스트" data={myplaylistData.myplaylist} playList={true} />
-            <ListSection title="지금, 인기 플레이스트" data={popularplaylistData.popularplaylist} playList={true} />
+            <ListSection title="내 플레이리스트" data={myplaylistData.myPlaylists} playList={true} />
+            <ListSection title="지금, 인기 플레이스트" data={popularplaylistData.popularPlaylists} playList={true} />
             <ListSection title="고인물이시군요 ^.^" data={userData.user} playList={false} />
             <span style={{ textAlign: "center", marginTop: "32px" }}>
                 지금 바로 여러분의 추억의 플리를 공유하세요<br />.<br />.<br />.

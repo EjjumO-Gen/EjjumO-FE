@@ -1,7 +1,7 @@
 // ListSection.jsx
 import React from "react";
 import styled from "styled-components";
-import ArrowIcon from '../assets/images/arrow_forward_ios.png'
+import ArrowForwardSvg from "../assets/images/arrow_forward.svg?react";
 import ListItem from "./ListItem";
 import UserItem from "./UserItem";
 
@@ -14,6 +14,7 @@ const Title = styled.div`
     font-weight: bold;
     font-size: 24px;
     color: white;
+    flex-direction: row;
 `
 const Arrow = styled.img`
     height: 24px;
@@ -32,7 +33,7 @@ const ListSection = ({ title, data, playList }) => {
         <SectionContainer>
             <Title>
                 {title}
-                <Arrow src={ArrowIcon} alt="Forward Arrow Icon" />
+                <ArrowForwardSvg style={{ marginLeft: '8px' }} />
             </Title>
             <ItemsContainer>
             {playList ? 

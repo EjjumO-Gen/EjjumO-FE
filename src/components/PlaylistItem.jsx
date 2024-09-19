@@ -1,9 +1,10 @@
 // PlaylistItem.jsx
 import React from "react";
 import ThumbsFillOffSvg from "../assets/images/thumbs_FillOff.svg?react";
-import ChatBubbleSvg from "../assets/images/chat_bubble.svg?react";
+import ChatSvg from "../assets/images/chat.svg?react";
 import PlayCircleSvg from "../assets/images/play_circle.svg?react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const PlaylistItemContainer = styled.div`
     display: flex;
@@ -68,7 +69,14 @@ const CommentsContainer = styled.div`
     margin-top: 8px;
 `
 
-const PlaylistItem = ({ userName, thumbnail, playlistName, description, thumbs, comments }) => {
+const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, description, thumbs, comments, comment }) => {
+    const navigate = useNavigate();
+
+    const HandleClick = () =>{
+        // navigate('/playlist/:playlistId/comment');
+        navigate(`/playlist/${playlistId}/comment`);
+    };
+
     return (
         <PlaylistItemContainer>
             <UserName>{userName}</UserName>
@@ -77,17 +85,19 @@ const PlaylistItem = ({ userName, thumbnail, playlistName, description, thumbs, 
                 <PlaylistName>{playlistName}</PlaylistName>
                 <Description>{description}</Description>
             </PlaylistInfoContainer>
-            <IconContainer>
-                <ThumbsContainer>
-                    <ThumbsFillOffSvg />
-                    <ThumbsCount>{thumbs}</ThumbsCount>
-                </ThumbsContainer>
-                <PlayCircleSvg />
-                <CommentsContainer>
-                    <ChatBubbleSvg />
-                    <CommentsCount>{comments}</CommentsCount>
-                </CommentsContainer>
-            </IconContainer>
+            {!comment ? (
+                <IconContainer>
+                    <ThumbsContainer>
+                        <ThumbsFillOffSvg />
+                        <ThumbsCount>{thumbs}</ThumbsCount>
+                    </ThumbsContainer>
+                    <PlayCircleSvg />
+                    <CommentsContainer onClick={HandleClick}>
+                        <ChatSvg />
+                        <CommentsCount>{comments}</CommentsCount>
+                    </CommentsContainer>
+                </IconContainer>
+            ) : null}
         </PlaylistItemContainer>
     );
 };
