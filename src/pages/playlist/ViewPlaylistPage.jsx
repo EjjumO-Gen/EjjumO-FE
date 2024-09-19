@@ -29,7 +29,7 @@ const ViewPlaylistPage = () => {
       "playlistId": 1, // 플리 id
       "userId": 1, // 작성자 user id
       "userName": "최우진",
-      "playlistName": "노동요근본",
+      "playlistName": "백투더2010",
       "description": "그때, 그시절, 추억의 노래,,,",
       "thumbs": 100,
       "comments": 150,
@@ -47,7 +47,7 @@ const ViewPlaylistPage = () => {
           "songId": 2,
           "title": "바람의 유령",
           "artist": "제국의아이들",
-          "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
+          "thumbnail": "https://lh3.googleusercontent.com/CG1S275mGxUOH3UzAJ-t6aZCXVEy_s0DV4tqtsTS_pTAN7jxzTVMP06MH8VeclS1adsanm9P5j-f8CVZWA=w120-h120-l90-rj",
           "videoId": "ie_uVB3cUpE",
           "duration": "3:31",
         },
@@ -58,13 +58,15 @@ const ViewPlaylistPage = () => {
         // <span>{params.playlistId}</span>
         <Wrapper>
           <PlayListWrapper>
-            <PlaylistItem 
+            <PlaylistItem
+              playlistId={playlistData.playlistId}
               userName={playlistData.userName}
               playlistName={playlistData.playlistName}
               description={playlistData.description}
               thumbs={playlistData.thumbs}
               comments={playlistData.comments}
               thumbnail={playlistData.songs[0].thumbnail}
+              comment={false}
             />
           </PlayListWrapper>
           <SongContainer>
