@@ -4,6 +4,7 @@ import LogoSvg from "../../assets/images/logo.svg?react"
 import ProfileSvg from "../../assets/images/profile.svg?react"
 import SearchSvg from "../../assets/images/search.svg?react"
 import AccountSvg from "../../assets/images/account.svg?react"
+import { useNavigate } from "react-router-dom"
 
 const Container = styled.div`
     display: flex;
@@ -15,14 +16,27 @@ const Container = styled.div`
     height: 50px;
     background-color: black;
     max-width: 425px;
+    z-index: 10;
 `
 
-export default function Header() {
+const Header = ({userId}) => {
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    navigate(`/profile/my`);
+  };
+
+  const handleLogoClick = () => {
+    navigate('/');
+  }
+
   return (
     <Container>
-      <AccountSvg style={{ padding: "0 16px" }} />
-      <LogoSvg />
+      <AccountSvg style={{ padding: "0 16px" }} onClick={handleProfileClick}/>
+      <LogoSvg onClick={handleLogoClick}/>
       <SearchSvg style={{ padding: "0 16px" }} />
     </Container>
-  )
-}
+  );
+};
+
+export default Header;
