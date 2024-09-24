@@ -5,7 +5,7 @@ import ArrowCircleUpGreenSvg from "../assets/images/arrow_circle_up_green.svg?re
 
 const CommentContainer = styled.div`
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     position: fixed;
     bottom: 0;
@@ -18,6 +18,7 @@ const CommentContainer = styled.div`
     box-sizing: border-box;
 `
 const ProfilePic = styled.img`
+    flex-shrink: 0;
     width: 50px;
     height: 50px;
     background-color: gray;
@@ -27,7 +28,6 @@ const ProfilePic = styled.img`
 const CommentInputContainer = styled.div`
     flex-grow: 1;
     height: 50px;
-    /* border: 2px solid white; */
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -38,9 +38,11 @@ const CommentInputContainer = styled.div`
     &:focus-within {
         background-color: white;
         border: 2px solid #11FFDA;
+        box-shadow: 0 0px 8px rgba(17, 255, 212, 0.5);
     }
 `
 const CommentInput = styled.input`
+    flex-grow: 1;
     font-family: "Galmuri9";
     color: white;
     font-size: 16px;
@@ -48,6 +50,7 @@ const CommentInput = styled.input`
     border: none;
     outline: none;
     background-color: transparent;
+    padding-left: 12px;
 
     &:focus {
         color: black;
@@ -63,7 +66,7 @@ const CommentAdd = ({ profilePic }) => {
 
     return (
         <CommentContainer>
-            <ProfilePic src={profilePic}/>
+            <ProfilePic src={profilePic} />
             <CommentInputContainer>
                 <CommentInput 
                     placeholder="댓글 추ㄱr"
