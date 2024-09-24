@@ -40,61 +40,52 @@ const CommentPage = () => {
     const params = useParams();
 
     const playlistData = {
-        "playlistId": 1, // 플리 id
-        "userId": 1, // 작성자 user id
-        "userName": "최우진",
-        "playlistName": "백투더2010_노동요근본",
-        "description": "그때, 그시절, 추억의 노래,,,",
-        "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-        "comments": [
-            {
-                "commentId": 1,
-                "userName": "심승보",
-                "profilePic" : "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "createdAt" : "7일 전",
-                "content": "노동요 근본이다."
-            },
-            {
-                "commentId": 2,
-                "userName": "전경원",
-                "profilePic" : "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "createdAt" : "6일 전",
-                "content": "마젤토브도 추가해주세요!!"
-            },
-            {
-                "commentId": 3,
-                "userName": "깃박사",
-                "profilePic" : "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "createdAt" : "2일 전",
-                "content": "깔쌈하네"
-            },
-            {
-                "commentId": 4,
-                "userName": "김현정",
-                "profilePic" : "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "createdAt" : "1일 전",
-                "content": "내가 어뜨케 그래혀어~ 내가 이꼬를 하고"
-            },
-            {
-                "commentId": 5,
-                "userName": "김찬별",
-                "profilePic" : "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "createdAt" : "1시간 전",
-                "content": "와 쩐다.. 개쩐다.."
-            },
-            
-        ]
-      };
+      "playlist": {
+          "playlistId": 1,
+          "userId": 1,
+          "userName": "심승보",
+          "playlistName": "고인물",
+          "description": "고인고인킵고인",
+          "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
+          "thumbs": 0,
+          "comments": 2,
+          "thumbsup": false
+      },
+      "comments": [
+          {
+              "commentId": 1,
+              "userId": 1,
+              "userName": "심승보",
+              "profilePic": null,
+              "playlistId": 1,
+              "content": "ㅇㅇ",
+              "createdAt": null,
+              "updatedAt": null,
+              "checked": false
+          },
+          {
+              "commentId": 2,
+              "userId": 1,
+              "userName": "심승보",
+              "profilePic": null,
+              "playlistId": 1,
+              "content": "많이들어줘라",
+              "createdAt": null,
+              "updatedAt": null,
+              "checked": false
+          }
+      ]
+  };
 
     return (
         // <span>{params.playlistId}</span>
         <Wrapper>
           <PlayListWrapper>
             <PlaylistItem 
-              userName={playlistData.userName}
-              playlistName={playlistData.playlistName}
-              description={playlistData.description}
-              thumbnail={playlistData.thumbnail}
+              userName={playlistData.playlist.userName}
+              playlistName={playlistData.playlist.playlistName}
+              description={playlistData.playlist.description}
+              thumbnail={playlistData.playlist.thumbnail}
               comment={true}
             />
           </PlayListWrapper>

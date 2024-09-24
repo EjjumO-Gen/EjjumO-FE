@@ -8,6 +8,7 @@ import ViewProfilePage from './pages/profile/ViewProfilePage';
 import ViewMyProfilePage from './pages/profile/ViewMyProfilePage';
 import DeleteUserPage from './pages/profile/DeleteUserPage';
 import DeleteCompletePage from './pages/profile/DeleteCompletePage';
+import CreatePlaylistPage from './pages/playlist/CreatePlaylistPage';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -29,6 +30,7 @@ function App() {
           <Route path="/profile/my" element={<ViewMyProfilePage />} />
           <Route path="/profile/my/delete" element={<DeleteUserPage />} />
           <Route path="/profile/my/delete/complete" element={<DeleteCompletePage />} />
+          <Route path="/playlist/create" element={<CreatePlaylistPage />} />
         </Routes>
       </ContentWrapper>
     </BrowserRouter>

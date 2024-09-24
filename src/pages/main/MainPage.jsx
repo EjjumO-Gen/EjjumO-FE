@@ -118,6 +118,8 @@ const userData = {
 };
 
 const MainPage = () => {
+    const navigate = useNavigate();
+
     return (
         <Container>
             <img src={MainBanner} alt="Main Banner" style={{ width: '100%', height: 'auto' }} />
@@ -127,7 +129,7 @@ const MainPage = () => {
             <span style={{ textAlign: "center", marginTop: "32px" }}>
                 지금 바로 여러분의 추억의 플리를 공유하세요<br />.<br />.<br />.
             </span>
-            <MakePlaylistSvg style={{ margin: "0 auto", marginTop: "8px", marginBottom: "32px" }} />
+            <MakePlaylistSvg style={{ margin: "0 auto", marginTop: "8px", marginBottom: "32px" }} onClick={() => navigate("/playlist/create")} />
         </Container>
     );
 };

@@ -26,45 +26,59 @@ const ViewPlaylistPage = () => {
     const params = useParams();
 
     const playlistData = {
-      "playlistId": 1, // 플리 id
-      "userId": 1, // 작성자 user id
-      "userName": "최우진",
-      "playlistName": "백투더2010",
-      "description": "그때, 그시절, 추억의 노래,,,",
-      "thumbs": 100,
-      "comments": 150,
-      "isThumbsup": false,
-      "songs": [
-        {
-          "songId": 1,
-          "title": "후유증",
-          "artist": "제국의아이들",
+      "playlist": {
+          "playlistId": 1,
+          "userId": 1,
+          "userName": "심승보",
+          "playlistName": "고인물",
+          "description": "고인고인킵고인",
           "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-          "videoId": "52IYtmlSqAQ",
-          "duration": "3:14",
-        },
-        {
-          "songId": 2,
-          "title": "바람의 유령",
-          "artist": "제국의아이들",
-          "thumbnail": "https://lh3.googleusercontent.com/CG1S275mGxUOH3UzAJ-t6aZCXVEy_s0DV4tqtsTS_pTAN7jxzTVMP06MH8VeclS1adsanm9P5j-f8CVZWA=w120-h120-l90-rj",
-          "videoId": "ie_uVB3cUpE",
-          "duration": "3:31",
-        },
+          "thumbs": 0,
+          "comments": 2,
+          "thumbsup": false
+      },
+      "songs": [
+          {
+              "songId": 3,
+              "playlistId": 1,
+              "title": "후유증",
+              "artist": "제국의 아이들",
+              "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
+              "videoId": "52IYtmlSqAQ",
+              "duration": "3:14"
+          },
+          {
+              "songId": 4,
+              "playlistId": 1,
+              "title": "후유증",
+              "artist": "제국의 아이들",
+              "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
+              "videoId": "52IYtmlSqAQ",
+              "duration": "3:14"
+          },
+          {
+              "songId": 5,
+              "playlistId": 1,
+              "title": "바람의 유령",
+              "artist": "제국의 아이들",
+              "thumbnail": null,
+              "videoId": null,
+              "duration": null
+          }
       ]
-    };
+  };
 
     return (
         // <span>{params.playlistId}</span>
         <Wrapper>
           <PlayListWrapper>
             <PlaylistItem
-              playlistId={playlistData.playlistId}
-              userName={playlistData.userName}
-              playlistName={playlistData.playlistName}
-              description={playlistData.description}
-              thumbs={playlistData.thumbs}
-              comments={playlistData.comments}
+              playlistId={playlistData.playlist.playlistId}
+              userName={playlistData.playlist.userName}
+              playlistName={playlistData.playlist.playlistName}
+              description={playlistData.playlist.description}
+              thumbs={playlistData.playlist.thumbs}
+              comments={playlistData.playlist.comments}
               thumbnail={playlistData.songs[0].thumbnail}
               comment={false}
             />
