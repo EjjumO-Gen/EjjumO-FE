@@ -6,7 +6,6 @@ const SongItemContainer = styled(Link)`
     display: flex;
     margin-bottom: 16px;
     flex-direction: row;
-    margin-left: 16px;
     text-decoration: none;
     color: white;
 `
@@ -38,7 +37,7 @@ const Separator = styled.span`
     margin: 0 4px; // 양쪽에 8px 마진
 `
 
-const SearchSongItem = ({ title, artist, thumbnail, videoId, duration }) => {
+const SearchSongItem = ({ title, artist, thumbnail, duration }) => {
     return (
         <SongItemContainer>
             <Thumbnail src={thumbnail}/>

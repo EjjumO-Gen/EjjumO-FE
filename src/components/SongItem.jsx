@@ -6,7 +6,6 @@ const SongItemContainer = styled(Link)`
     display: flex;
     margin-bottom: 16px;
     flex-direction: row;
-    margin-left: 16px;
     text-decoration: none;
     color: white;
 `

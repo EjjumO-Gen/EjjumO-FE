@@ -8,9 +8,9 @@ import SongItem from "../../components/SongItem";
 import SearchSongItem from "../../components/SearchSongItem";
 
 const Wrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 `
 const LogoWrapper = styled.div`
     display: flex;
@@ -79,8 +79,15 @@ const SearchResultsContainer = styled.div`
     border-radius: 8px;
     border: 2px solid white;
     margin: 0 16px 96px 16px;
-    padding-top: 16px;
+    padding: 16px 16px 0 16px;
     overflow-y: scroll;
+`
+
+const SelectedSongContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 16px;
 `
 
 const CreatePlaylistPage = () => {
@@ -93,8 +100,9 @@ const CreatePlaylistPage = () => {
         getSearchResult({ keyword: searchParam, setData: setSearchResults });
     }
 
-    const handleSelectSong = () => {
-        
+    const handleSelectSong = (item) => {
+        console.log(item);
+        setSelectedSongs([...selectedSongs, item]);
     }
 
     return (
@@ -103,16 +111,33 @@ const CreatePlaylistPage = () => {
                 <CreatePlaylistLogoSvg />
                 <DeleteButtonSvg />
             </LogoWrapper>
+
             <CreateInputContainer>
                 <CreateInput 
                     placeholder="제목"
                 />
             </CreateInputContainer>
+
             <CreateInputContainer>
                 <CreateInput 
                     placeholder="설명"
                 />
             </CreateInputContainer>
+
+            {selectedSongs.length > 0 && 
+                selectedSongs.map((item) => (
+                    <SelectedSongContainer key={item.videoId}>
+                        <SongItem
+                            title={item.title}
+                            artist={item.author}
+                            thumbnail={item.thumbnail}
+                            duration={item.duration}
+                        />
+                        <DeleteButtonSvg style={{ marginBottom: "16px" }} />
+                    </SelectedSongContainer>
+                ))
+            }
+
             <CreateInputContainer>
                 <CreateInput 
                     placeholder="노래를 검색해ㅂr"
@@ -122,21 +147,22 @@ const CreatePlaylistPage = () => {
                 />  
                 <SearchButtonSvg style={{ marginRight: '12px' }} onClick={handleSearch} />
             </CreateInputContainer>
+
             {searchResults.length > 0 && (
                 <SearchResultsContainer>
                     {searchResults.map((item) => (
-                        <div key={item.videoId}>
+                        <div key={item.videoId} onClick={() => handleSelectSong(item)} >
                             <SearchSongItem
                                 title={item.title}
                                 artist={item.author}
                                 thumbnail={item.thumbnail}
-                                videoId={item.videoId}
                                 duration={item.duration}
                             />
                         </div>
                     ))}
                 </SearchResultsContainer>
             )}
+
             <CreateWrapper>
                 <CreateButton>작성하기</CreateButton>
             </CreateWrapper>
