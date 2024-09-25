@@ -24,6 +24,10 @@ body {
   max-width: 425px;
   min-height: 100vh;
   background-color: #242424;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 #root {
