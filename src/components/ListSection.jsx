@@ -56,7 +56,7 @@ const ListSection = ({ title, data, playList }) => {
                         userId={item.userId}
                         userName={item.userName}
                         profilePic={item.profilePic}
-                        thumbs={item.thumbs}
+                        thumbs={item.totalThumbs}
                     />)
                 })}
             </ItemsContainer>
