@@ -26,7 +26,10 @@ const SongContainer = styled.div`
 
 const ViewPlaylistPage = () => {
     const {playlistId} = useParams();
-    const [playlistData, setPlaylistData] = useState(null);
+    const [playlistData, setPlaylistData] = useState({
+      "playlist": {},
+      "songs": []
+    });
 
     useEffect(() => {
       getPlaylistById({playlistId: 19, setData: setPlaylistData});
@@ -44,7 +47,7 @@ const ViewPlaylistPage = () => {
                   description={playlistData.playlist.description}
                   thumbs={playlistData.playlist.thumbs}
                   comments={playlistData.playlist.comments}
-                  thumbnail={playlistData.songs[0].thumbnail}
+                  thumbnail={playlistData.playlist.thumbnail}
                   comment={false}
                 />
               </PlayListWrapper>
