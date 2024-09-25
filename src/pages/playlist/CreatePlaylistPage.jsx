@@ -3,6 +3,9 @@ import styled from "styled-components";
 import CreatePlaylistLogoSvg from "../../assets/images/createplaylist_logo.svg?react";
 import DeleteButtonSvg from "../../assets/images/delete_button.svg?react";
 import SearchButtonSvg from "../../assets/images/search_button.svg?react";
+import { getSearchResult } from "../../apis/provider";
+import SongItem from "../../components/SongItem";
+import SearchSongItem from "../../components/SearchSongItem";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -52,6 +55,7 @@ const CreateInputContainer = styled.div`
         background-color: white;
         border: 2px solid #11FFDA;
         box-shadow: 0 0px 8px rgba(17, 255, 212, 0.5);
+        transition: all 0.3s;
     }
 `
 const CreateInput = styled.input`
@@ -75,13 +79,24 @@ const SearchResultsContainer = styled.div`
     border-radius: 8px;
     border: 2px solid white;
     margin: 0 16px 96px 16px;
-    padding: 16px;
+    padding-top: 16px;
     overflow-y: scroll;
 `
 
 const CreatePlaylistPage = () => {
     const [ isFocused, setIsFocused ] = useState(false);
+    const [ searchParam, setSearchParam ] = useState("");
+    const [ searchResults, setSearchResults ] = useState([]);
+    const [selectedSongs, setSelectedSongs] = useState([]);
     
+    const handleSearch = () => {
+        getSearchResult({ keyword: searchParam, setData: setSearchResults });
+    }
+
+    const handleSelectSong = () => {
+        
+    }
+
     return (
         <Wrapper>
             <LogoWrapper>
@@ -102,16 +117,24 @@ const CreatePlaylistPage = () => {
                 <CreateInput 
                     placeholder="노래를 검색해ㅂr"
                     onFocus={() => setIsFocused(true)}
-                    onBlur={() => isFocused(false)}
-                />
-                <SearchButtonSvg style={{ marginRight: '12px' }} />
+                    onBlur={() => setIsFocused(false)}
+                    onChange={(e) => setSearchParam(e.target.value)}
+                />  
+                <SearchButtonSvg style={{ marginRight: '12px' }} onClick={handleSearch} />
             </CreateInputContainer>
-            {isFocused && (
+            {searchResults.length > 0 && (
                 <SearchResultsContainer>
-                    검색 결과를 여기에 표시데쓰네~^.^ <br />
-                    디스 이즈 쉼승보 선배륌이~ <br />
-                    유튭 API 불러와서~ <br />
-                    어찌저찌 할 것임~~ 하핳 <br />
+                    {searchResults.map((item) => (
+                        <div key={item.videoId}>
+                            <SearchSongItem
+                                title={item.title}
+                                artist={item.author}
+                                thumbnail={item.thumbnail}
+                                videoId={item.videoId}
+                                duration={item.duration}
+                            />
+                        </div>
+                    ))}
                 </SearchResultsContainer>
             )}
             <CreateWrapper>
