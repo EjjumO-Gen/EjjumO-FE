@@ -1,3 +1,4 @@
+// user.js
 import { Server } from "./axios.setting"
 
 export const getUserData = async ({
