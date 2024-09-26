@@ -37,6 +37,12 @@ const CommentWrapper = styled.div`
     align-items: center;
     justify-content: center;
 `
+const NoComments = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 32px;
+`
 
 const CommentPage = () => {
   const { playlistId } = useParams();
@@ -64,15 +70,19 @@ const CommentPage = () => {
           </PlayListWrapper>
           <CommentContainer>
             <Title>댓글</Title>
-            {commentData.comments.map((item) => (
-              <CommentItem
-                key={item.commentId}
-                profilePic={item.profilePic}
-                userName={item.userName}
-                createdAt={item.createdAt}
-                content={item.content}
-              />
-            ))}
+            {commentData.comments.length > 0 ? (
+              commentData.comments.map((item) => (
+                <CommentItem
+                  key={item.commentId}
+                  profilePic={item.profilePic}
+                  userName={item.userName}
+                  createdAt={item.createdAt}
+                  content={item.content}
+                />
+              ))
+            ) : (
+              <NoComments>아직 댓글이 없어요.</NoComments>
+            )}
           </CommentContainer>
           <CommentWrapper>
             <CommentAdd
