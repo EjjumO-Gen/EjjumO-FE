@@ -86,7 +86,9 @@ const CommentPage = () => {
           </CommentContainer>
           <CommentWrapper>
             <CommentAdd
-              profilePic={commentData.comments.profilePic}
+              profilePic={commentData.comments[0]?.profilePic}
+              playlistId={playlistId}
+              setCommentData={setCommentData}
             />
           </CommentWrapper>
         </>
