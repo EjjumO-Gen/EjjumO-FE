@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CreatePlaylistLogoSvg from "../../assets/images/createplaylist_logo.svg?react";
 import DeleteButtonSvg from "../../assets/images/delete_button.svg?react";
 import SearchButtonSvg from "../../assets/images/search_button.svg?react";
 import { getSearchResult } from "../../apis/provider";
-import SongItem from "../../components/SongItem";
+
 import SearchSongItem from "../../components/SearchSongItem";
+import SelectedSongItem from "../../components/SelectedSongItem";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -91,9 +92,8 @@ const SelectedSongContainer = styled.div`
 `
 
 const CreatePlaylistPage = () => {
-    const [ isFocused, setIsFocused ] = useState(false);
-    const [ searchParam, setSearchParam ] = useState("");
-    const [ searchResults, setSearchResults ] = useState([]);
+    const [searchParam, setSearchParam] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
     const [selectedSongs, setSelectedSongs] = useState([]);
     
     const handleSearch = () => {
@@ -101,8 +101,13 @@ const CreatePlaylistPage = () => {
     }
 
     const handleSelectSong = (item) => {
-        console.log(item);
-        setSelectedSongs([...selectedSongs, item]);
+        const temp = selectedSongs.filter((song) => song.videoId !== item.videoId)
+        setSelectedSongs([...temp, item]);
+    }
+
+    const handleRemoveSong = (item) => {
+        const temp = selectedSongs.filter((song) => song.videoId !== item.videoId)
+        setSelectedSongs(temp);
     }
 
     return (
@@ -127,13 +132,13 @@ const CreatePlaylistPage = () => {
             {selectedSongs.length > 0 && 
                 selectedSongs.map((item) => (
                     <SelectedSongContainer key={item.videoId}>
-                        <SongItem
+                        <SelectedSongItem
                             title={item.title}
                             artist={item.author}
                             thumbnail={item.thumbnail}
                             duration={item.duration}
+                            onClick={() => handleRemoveSong(item)}
                         />
-                        <DeleteButtonSvg style={{ marginBottom: "16px" }} />
                     </SelectedSongContainer>
                 ))
             }
@@ -141,8 +146,6 @@ const CreatePlaylistPage = () => {
             <CreateInputContainer>
                 <CreateInput 
                     placeholder="노래를 검색해ㅂr"
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
                     onChange={(e) => setSearchParam(e.target.value)}
                 />  
                 <SearchButtonSvg style={{ marginRight: '12px' }} onClick={handleSearch} />
