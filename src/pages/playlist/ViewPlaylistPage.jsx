@@ -22,6 +22,7 @@ const SongContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
+  padding: 0 16px;
 `
 
 const ViewPlaylistPage = () => {
