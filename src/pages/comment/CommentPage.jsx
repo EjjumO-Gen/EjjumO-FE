@@ -1,9 +1,11 @@
-import React from "react";
+// CommentPage.jsx
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import PlaylistItem from "../../components/PlaylistItem";
 import CommentItem from "../../components/CommentItem";
 import CommentAdd from "../../components/CommentAdd";
+import { getCommentByPlaylistId } from "../../apis/comment";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -35,79 +37,62 @@ const CommentWrapper = styled.div`
     align-items: center;
     justify-content: center;
 `
+const NoComments = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 32px;
+`
 
 const CommentPage = () => {
-    const params = useParams();
+  const { playlistId } = useParams();
+  const [commentData, setCommentData] = useState({
+    "playlist": {},
+    "comments": []
+  });
 
-    const playlistData = {
-      "playlist": {
-          "playlistId": 1,
-          "userId": 1,
-          "userName": "심승보",
-          "playlistName": "고인물",
-          "description": "고인고인킵고인",
-          "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-          "thumbs": 0,
-          "comments": 2,
-          "thumbsup": false
-      },
-      "comments": [
-          {
-              "commentId": 1,
-              "userId": 1,
-              "userName": "심승보",
-              "profilePic": null,
-              "playlistId": 1,
-              "content": "ㅇㅇ",
-              "createdAt": null,
-              "updatedAt": null,
-              "checked": false
-          },
-          {
-              "commentId": 2,
-              "userId": 1,
-              "userName": "심승보",
-              "profilePic": null,
-              "playlistId": 1,
-              "content": "많이들어줘라",
-              "createdAt": null,
-              "updatedAt": null,
-              "checked": false
-          }
-      ]
-  };
+  useEffect(() => {
+    getCommentByPlaylistId({ playlistId: 18, setData: setCommentData });
+  }, [playlistId]);
 
-    return (
-        // <span>{params.playlistId}</span>
-        <Wrapper>
+  return (
+    <Wrapper>
+      {commentData && (
+        <>
           <PlayListWrapper>
-            <PlaylistItem 
-              userName={playlistData.playlist.userName}
-              playlistName={playlistData.playlist.playlistName}
-              description={playlistData.playlist.description}
-              thumbnail={playlistData.playlist.thumbnail}
+            <PlaylistItem
+              userName={commentData.playlist.userName}
+              playlistName={commentData.playlist.playlistName}
+              description={commentData.playlist.description}
+              thumbnail={commentData.playlist.thumbnail}
               comment={true}
             />
           </PlayListWrapper>
           <CommentContainer>
             <Title>댓글</Title>
-            {playlistData.comments.map((item) => (
-                <CommentItem 
-                key={item.commentId}
-                profilePic={item.profilePic}
-                userName={item.userName}
-                createdAt={item.createdAt}
-                content={item.content}
+            {commentData.comments.length > 0 ? (
+              commentData.comments.map((item) => (
+                <CommentItem
+                  key={item.commentId}
+                  profilePic={item.profilePic}
+                  userName={item.userName}
+                  createdAt={item.createdAt}
+                  content={item.content}
                 />
-            ))}
+              ))
+            ) : (
+              <NoComments>아직 댓글이 없어요.</NoComments>
+            )}
           </CommentContainer>
           <CommentWrapper>
-            <CommentAdd 
-                profilePic={playlistData.comments[0].profilePic}
+            <CommentAdd
+              profilePic={commentData.comments.profilePic}
             />
           </CommentWrapper>
-        </Wrapper>
-    );
-  }
-  
+        </>
+      )}
+    </Wrapper>
+  );
+}
+
 export default CommentPage;

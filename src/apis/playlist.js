@@ -8,7 +8,9 @@ export const getPlaylistList = async ({
     setData(response.data);
 }
 
-export const getPlaylistById = async ({playlistId, setData}) => {
+export const getPlaylistById = async ({
+    playlistId, setData
+}) => {
     const response = await Server.get(`playlist?id=${playlistId}`);
     setData(response.data);
 

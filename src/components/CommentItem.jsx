@@ -1,5 +1,5 @@
-// SongItem.jsx
-import { Link } from "react-router-dom";
+// CommentItem.jsx
+import React from "react";
 import styled from "styled-components";
 
 const CommentItemContainer = styled.div`
@@ -39,6 +39,18 @@ const Separator = styled.span`
 `
 
 const CommentItem = ({ content, userName, profilePic, createdAt }) => {
+    const getTimeAgo = (dateString) => {
+        const date = new Date(dateString);
+        const today = new Date();
+        const timeDiff = Math.abs(today - date);
+        const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        
+        if (daysDiff === 0) {
+            return "최근";
+        }
+        return `${daysDiff}일 전`;
+    }
+    
     return (
         <CommentItemContainer>
             <ProfilePic src={profilePic}/>
@@ -46,7 +58,7 @@ const CommentItem = ({ content, userName, profilePic, createdAt }) => {
                 <CommentDetail>
                     <UserName>{userName}</UserName>
                     <Separator>・</Separator>
-                    <CreatedAt>{createdAt}</CreatedAt>
+                    <CreatedAt>{getTimeAgo(createdAt)}</CreatedAt>
                 </CommentDetail>
                 <Content>{content}</Content>
             </CommentInfo>

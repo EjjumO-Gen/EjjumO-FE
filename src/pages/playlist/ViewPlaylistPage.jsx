@@ -32,7 +32,7 @@ const ViewPlaylistPage = () => {
     });
 
     useEffect(() => {
-      getPlaylistById({playlistId: 19, setData: setPlaylistData});
+      getPlaylistById({playlistId: 18, setData: setPlaylistData});
     }, [playlistId]);
 
     return (
