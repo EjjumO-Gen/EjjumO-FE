@@ -72,7 +72,7 @@ const CommentAdd = ({ profilePic, playlistId, setCommentData }) => {
         if (content.trim()) {
             const commentData = { 
                 userId: 3,
-                playlistId: 18,
+                playlistId: playlistId,
                 content 
             };
             await postComment(commentData);

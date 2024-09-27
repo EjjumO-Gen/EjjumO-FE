@@ -52,7 +52,7 @@ const CommentPage = () => {
   });
 
   useEffect(() => {
-    getCommentByPlaylistId({ playlistId: 18, setData: setCommentData });
+    getCommentByPlaylistId({ playlistId: playlistId, setData: setCommentData });
   }, [playlistId]);
 
   return (
