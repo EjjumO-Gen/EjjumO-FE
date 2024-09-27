@@ -19,7 +19,6 @@ const LogoWrapper = styled.div`
     display: flex;
     margin: 32px 16px 32px 16px;
     flex-direction: row;
-    justify-content: space-between;
 `
 const CreateWrapper = styled.div`
     display: flex;
@@ -154,7 +153,7 @@ const CreatePlaylistPage = () => {
         <Wrapper>
             <LogoWrapper>
                 <CreatePlaylistLogoSvg />
-                <DeleteButtonSvg />
+                <span>✨</span>
             </LogoWrapper>
 
             <CreateInputContainer>
