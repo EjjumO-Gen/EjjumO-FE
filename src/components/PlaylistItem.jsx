@@ -7,9 +7,7 @@ import PlayCircleSvg from "../assets/images/play_circle.svg?react";
 import EditButtonSvg from "../assets/images/edit_button.svg?react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { googleLogin } from "../apis/auth";
-import { getGoogleToken } from "../utils/token";
-import { createYoutubePlaylist } from "../apis/provider";
+
 
 const PlaylistItemContainer = styled.div`
     display: flex;
@@ -85,7 +83,7 @@ const CommentsContainer = styled.div`
     margin-top: 8px;
 `
 
-const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, description, thumbs, isThumbsup, comments, comment, handleThumbsClick }) => {
+const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, description, thumbs, isThumbsup, comments, comment, handleThumbsClick, handlePlayClick }) => {
     const navigate = useNavigate();
     // const [isThumbsUp, setIsThumbsUp] = useState(false);
     // const [thumbsCount, setThumbsCount] = useState(thumbs);

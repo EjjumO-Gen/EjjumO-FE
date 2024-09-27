@@ -5,6 +5,9 @@ import SongItem from "../../components/SongItem";
 import PlaylistItem from "../../components/PlaylistItem";
 import styled from "styled-components";
 import { getPlaylistById, updatePlaylistThumbs } from "../../apis/playlist";
+import { googleLogin } from "../../apis/auth";
+import { getGoogleToken } from "../../utils/token";
+import { addSongToPlaylist, createYoutubePlaylist } from "../../apis/provider";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -51,6 +54,34 @@ const ViewPlaylistPage = () => {
         }
       }))
     }
+    
+    const handlePlayClick = async () => {
+      const googleAccessToken = getGoogleToken();
+      if (googleAccessToken) {
+        const response = await createYoutubePlaylist({
+          googleAccessToken: googleAccessToken,
+          playlistData: {
+              playlistName: playlistData.playlist.playlistName,
+              description: playlistData.playlist.description
+          }
+        })
+
+        const youtubePlaylistId = response.id;
+
+        for (const song of playlistData.songs) {
+          await addSongToPlaylist({
+            googleAccessToken: googleAccessToken,
+            youtubePlaylistId: youtubePlaylistId,
+            videoId: song.videoId
+          })
+        }
+
+        const playlistUrl = `https://www.youtube.com/playlist?list=${youtubePlaylistId}`;
+        window.location.href = playlistUrl;
+      } else {
+          googleLogin();
+      }
+  }
 
     return (
         <Wrapper>
@@ -68,6 +99,7 @@ const ViewPlaylistPage = () => {
                   thumbnail={playlistData.playlist.thumbnail}
                   comment={false}
                   handleThumbsClick={handleThumbsup}
+                  handlePlayClick={handlePlayClick}
                 />
               </PlayListWrapper>
               <SongContainer>
