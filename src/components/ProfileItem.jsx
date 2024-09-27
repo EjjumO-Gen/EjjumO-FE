@@ -40,7 +40,7 @@ const ThumbsContainer = styled.div`
     margin-top: 32px;
     width: 100%;
     justify-content: center;
-    gap: 4px;
+    gap: 8px;
 `
 
 const ProfileItem = ({ userId, userName, profilePic, thumbs }) => {

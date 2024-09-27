@@ -18,3 +18,9 @@ export const getUserList = async ({
     const response = await Server.get('user/list');
     setData(response.data);
 }
+
+export const getUserById = async ({ userId, setData }) => {
+    const response = await Server.get(`user?id=${userId}`);
+    setData(response.data);
+
+}
