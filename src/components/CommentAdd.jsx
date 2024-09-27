@@ -1,7 +1,9 @@
+// CommentAdd.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
 import ArrowCircleUpSvg from "../assets/images/arrow_circle_up.svg?react";
 import ArrowCircleUpGreenSvg from "../assets/images/arrow_circle_up_green.svg?react";
+import { postComment, getCommentByPlaylistId } from "../apis/comment";
 
 const CommentContainer = styled.div`
     display: flex;
@@ -57,11 +59,27 @@ const CommentInput = styled.input`
     }
 `
 
-const CommentAdd = ({ profilePic }) => {
+const CommentAdd = ({ profilePic, playlistId, setCommentData }) => {
     const [ isTyping, setIsTyping ] = useState(false);
+    const [ content, setContent] = useState("");
 
     const handleInputChange = (event) => {
+        setContent(event.target.value);
         setIsTyping(event.target.value.length > 0);
+    };
+
+    const handleSubmit = async () => {
+        if (content.trim()) {
+            const commentData = { 
+                userId: 3,
+                playlistId: playlistId,
+                content 
+            };
+            await postComment(commentData);
+            getCommentByPlaylistId({ playlistId, setData: setCommentData });
+            setContent("");
+            setIsTyping(false);
+        }
     };
 
     return (
@@ -70,10 +88,13 @@ const CommentAdd = ({ profilePic }) => {
             <CommentInputContainer>
                 <CommentInput 
                     placeholder="댓글 추ㄱr"
+                    value={content}
                     onChange={handleInputChange}
                 />
-                {isTyping ? <ArrowCircleUpGreenSvg style={{ marginRight: '12px' }}/>
-                           : <ArrowCircleUpSvg style={{ marginRight: '12px' }}/>}
+                <div onClick={handleSubmit}>
+                    {isTyping ? <ArrowCircleUpGreenSvg style={{ marginRight: '12px' }}/>
+                            : <ArrowCircleUpSvg style={{ marginRight: '12px' }}/>}
+                </div>
             </CommentInputContainer>
         </CommentContainer>
     );

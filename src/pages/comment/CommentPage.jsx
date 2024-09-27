@@ -52,7 +52,7 @@ const CommentPage = () => {
   });
 
   useEffect(() => {
-    getCommentByPlaylistId({ playlistId: 18, setData: setCommentData });
+    getCommentByPlaylistId({ playlistId: playlistId, setData: setCommentData });
   }, [playlistId]);
 
   return (
@@ -86,7 +86,9 @@ const CommentPage = () => {
           </CommentContainer>
           <CommentWrapper>
             <CommentAdd
-              profilePic={commentData.comments.profilePic}
+              profilePic={commentData.comments[0]?.profilePic}
+              playlistId={playlistId}
+              setCommentData={setCommentData}
             />
           </CommentWrapper>
         </>
