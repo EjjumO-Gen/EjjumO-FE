@@ -1,9 +1,11 @@
-// MainPage.jsx
+// ViewMyProfilePage.jsx
+import React, { useEffect, useState } from "react";
 import styled from "styled-components"; 
 import ListSection from "../../components/ListSection";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProfileItem from "../../components/ProfileItem";
 import DeleteUserSvg from "../../assets/images/delete_user.svg?react";
+import { getUserById } from "../../apis/user";
 
 const Container = styled.div`
     display: flex;
@@ -24,49 +26,17 @@ const DeleteUserWrapper = styled.div`
 `
 
 const ViewMyProfilePage = () => {
-    const myplaylistData = {
-        "myPlaylists": [
-            {
-                "playlistId": 1, // 플리 id
-                "playlistName": "노동요근본_니들이 케이팝을 알어~?!",
-                "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "thumbs": 100,
-            }, 
-            {
-                "playlistId": 10, // 플리 id
-                "playlistName": "백투더2010",
-                "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "thumbs": 200,
-            }, 
-            {
-                "playlistId": 17, // 플리 id
-                "playlistName": "노동요근본2",
-                "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "thumbs": 300,
-            },
-            {
-                "playlistId": 20, // 플리 id
-                "playlistName": "노동요깔끼",
-                "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "thumbs": 400,
-            },
-            {
-                "playlistId": 25, // 플리 id
-                "playlistName": "노동요근본",
-                "thumbnail": "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-                "thumbs": 500,
-            },
-        ]
-    };
-
-    const userData = {
-        "userId": 1,
-        "userName": "쉼승보",
-        "profilePic" : "https://lh3.googleusercontent.com/nKvFQ16eEH9G7DjW-M-bGhZSlacvyyWAGsQQVPDusyVTUKjgC5flHRMvTXVx2HglPT4i0BQhtG5w7TQ=w120-h120-l90-rj",
-        "thumbs": 100,
-    };
-
     const navigate = useNavigate();
+
+    const {userId} = useParams();
+    const [userData, setUserData] = useState({
+        "user": {},
+        "playlist": []
+    });
+
+    useEffect(() => {
+        getUserById({userId: 3, setData: setUserData})
+    }, [userId]);
 
     const handleDeleteClick = () => {
         navigate('/profile/my/delete');
@@ -74,15 +44,17 @@ const ViewMyProfilePage = () => {
 
     return (
         <Container>
-            <ProfileWrapper>
-                <ProfileItem 
-                    userId={userData.userId}
-                    profilePic={userData.profilePic}
-                    userName={userData.userName}
-                    thumbs={userData.thumbs}
-                />
-            </ProfileWrapper>
-            <ListSection title="내 플레이리스트" data={myplaylistData.myPlaylists} playList={true} />
+            {userData && (
+                <ProfileWrapper>
+                    <ProfileItem
+                        userId={userData.user.userId}
+                        profilePic={userData.user.profilePic}
+                        userName={userData.user.userName}
+                        thumbs={userData.user.totalThumbs}
+                    />
+                </ProfileWrapper>
+            )}
+            <ListSection title="내 플레이리스트" data={userData.playlist} playList={true} />
             <DeleteUserWrapper>
                 <DeleteUserSvg onClick={handleDeleteClick} style={{ marginBottom: "32px" }}/>
             </DeleteUserWrapper>

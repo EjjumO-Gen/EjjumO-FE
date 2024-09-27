@@ -1,4 +1,4 @@
-// ListItem.jsx
+// UserItem.jsx
 import React from "react";
 import styled from "styled-components";
 import ThumbsUpSvg from "../assets/images/thumb_up.svg?react";
