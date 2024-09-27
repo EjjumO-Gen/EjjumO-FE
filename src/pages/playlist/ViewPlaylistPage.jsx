@@ -1,6 +1,6 @@
 // ViewPlaylistPage.jsx
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SongItem from "../../components/SongItem";
 import PlaylistItem from "../../components/PlaylistItem";
 import styled from "styled-components";
@@ -41,12 +41,13 @@ const Loading = styled.div`
 `
 
 const messages = [
-  "유튜브 재생목록 생성 중...",
   "추억을 유튜브로 소환중...",
+  "팝업 차단을 허용해야 플리가 열려요.",
   "곡이 많을 수록 시간이 걸릴 수 있어요."
 ];
 
 const ViewPlaylistPage = () => {
+    const navigate = useNavigate();
     const {playlistId} = useParams();
 
     const [playlistData, setPlaylistData] = useState({
@@ -102,8 +103,7 @@ const ViewPlaylistPage = () => {
             })
           }
 
-          const playlistUrl = `https://www.youtube.com/playlist?list=${youtubePlaylistId}`;
-          window.location.href = playlistUrl;
+          window.open(`https://www.youtube.com/playlist?list=${youtubePlaylistId}`, '_blank');
         } else {
           googleLogin();
         }
