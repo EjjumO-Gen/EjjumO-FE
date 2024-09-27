@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 `
 
 const PlayListWrapper = styled.div`
@@ -28,12 +29,35 @@ const SongContainer = styled.div`
   padding: 0 16px;
 `
 
+const Loading = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  backdrop-filter: blur(15px);
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+`
+
+const messages = [
+  "유튜브 재생목록 생성 중...",
+  "추억을 유튜브로 소환중...",
+  "곡이 많을 수록 시간이 걸릴 수 있어요."
+];
+
 const ViewPlaylistPage = () => {
     const {playlistId} = useParams();
+
     const [playlistData, setPlaylistData] = useState({
       "playlist": {},
       "songs": []
     });
+
+    const googleAccessToken = getGoogleToken();
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [loadingIdx, setLoadingIdx] = useState(0);
 
     useEffect(() => {
       getPlaylistById({playlistId: playlistId, setData: setPlaylistData});
@@ -56,35 +80,60 @@ const ViewPlaylistPage = () => {
     }
     
     const handlePlayClick = async () => {
-      const googleAccessToken = getGoogleToken();
-      if (googleAccessToken) {
-        const response = await createYoutubePlaylist({
-          googleAccessToken: googleAccessToken,
-          playlistData: {
-              playlistName: playlistData.playlist.playlistName,
-              description: playlistData.playlist.description
-          }
-        })
+      setIsLoading(true);
 
-        const youtubePlaylistId = response.id;
-
-        for (const song of playlistData.songs) {
-          await addSongToPlaylist({
+      try {
+        if (googleAccessToken) {
+          const response = await createYoutubePlaylist({
             googleAccessToken: googleAccessToken,
-            youtubePlaylistId: youtubePlaylistId,
-            videoId: song.videoId
+            playlistData: {
+                playlistName: playlistData.playlist.playlistName,
+                description: playlistData.playlist.description
+            }
           })
-        }
 
-        const playlistUrl = `https://www.youtube.com/playlist?list=${youtubePlaylistId}`;
-        window.location.href = playlistUrl;
-      } else {
+          const youtubePlaylistId = response.id;
+
+          for (const song of playlistData.songs) {
+            await addSongToPlaylist({
+              googleAccessToken: googleAccessToken,
+              youtubePlaylistId: youtubePlaylistId,
+              videoId: song.videoId
+            })
+          }
+
+          const playlistUrl = `https://www.youtube.com/playlist?list=${youtubePlaylistId}`;
+          window.location.href = playlistUrl;
+        } else {
           googleLogin();
+        }
       }
-  }
+      catch (error) {
+        console.error(error);
+      }
+
+      setIsLoading(false);
+    }
+
+    useEffect(() => {
+      if (isLoading) {
+        const interval = setInterval(() => {
+          setLoadingIdx((loadingIdx) => (loadingIdx + 1) % messages.length);
+        }, 3000);
+  
+        return () => {
+          clearInterval(interval);
+        }
+      }
+    })
 
     return (
         <Wrapper>
+          {isLoading && ( 
+            <Loading>
+              {messages[loadingIdx]}
+            </Loading> 
+          )}
           {playlistData && (
             <>
               <PlayListWrapper>
