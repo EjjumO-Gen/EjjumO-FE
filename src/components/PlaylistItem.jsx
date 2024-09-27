@@ -85,11 +85,8 @@ const CommentsContainer = styled.div`
 
 const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, description, thumbs, isThumbsup, comments, comment, handleThumbsClick, handlePlayClick }) => {
     const navigate = useNavigate();
-    // const [isThumbsUp, setIsThumbsUp] = useState(false);
-    // const [thumbsCount, setThumbsCount] = useState(thumbs);
 
     const handleCommentsClick = () =>{
-        // navigate('/playlist/:playlistId/comment');
         navigate(`/playlist/${playlistId}/comment`);
     };
 
@@ -97,21 +94,6 @@ const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, descripti
         navigate(`edit`);
     }
     
-    const handlePlayClick = () => {
-        const googleAccessToken = getGoogleToken();
-        if (googleAccessToken) {
-            const response = createYoutubePlaylist({
-                googleAccessToken: googleAccessToken,
-                playlistData: {
-                    playlistName: playlistName,
-                    description: description
-                }
-            })
-        } else {
-            googleLogin();
-        }
-    }
-
     return (
         <PlaylistItemContainer>
 
@@ -133,7 +115,9 @@ const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, descripti
                         {isThumbsup ? <ThumbsFillOnSvg /> : <ThumbsFillOffSvg />}
                         <ThumbsCount>{thumbs}</ThumbsCount>
                     </ThumbsContainer>
+
                     <PlayCircleSvg onClick={handlePlayClick} />
+
                     <CommentsContainer onClick={handleCommentsClick}>
                         <ChatSvg />
                         <CommentsCount>{comments}</CommentsCount>
