@@ -7,6 +7,9 @@ import PlayCircleSvg from "../assets/images/play_circle.svg?react";
 import EditButtonSvg from "../assets/images/edit_button.svg?react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { googleLogin } from "../apis/auth";
+import { getGoogleToken } from "../utils/token";
+import { createYoutubePlaylist } from "../apis/provider";
 
 const PlaylistItemContainer = styled.div`
     display: flex;
@@ -87,26 +90,7 @@ const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, descripti
     // const [isThumbsUp, setIsThumbsUp] = useState(false);
     // const [thumbsCount, setThumbsCount] = useState(thumbs);
 
-    // useEffect(() => {
-    //     const fetchPlaylist = async () => {
-    //         const data = { isThumbsUp: false, thumbs: 99};
-    //         setIsThumbsUp(data.isThumbsUp);
-    //         setThumbsCount(data.thumbs);
-    //     }
-    //     fetchPlaylist();
-    // }, [playlistId]);
-
-    // const handleThumbsClick = async () => {
-    //     try {
-    //         const newThumbsData = { isThumbsUp: !isThumbsUp, thumbs: isThumbsUp ? thumbsCount - 1 : thumbsCount + 1 };
-    //         setIsThumbsUp(newThumbsData.isThumbsUp);
-    //         setThumbsCount(newThumbsData.thumbs);
-    //     } catch (error) {
-    //         console.error('Error updating thumbs:', error);
-    //     }
-    // };
-
-    const handleCommentsClick = () => {
+    const handleCommentsClick = () =>{
         // navigate('/playlist/:playlistId/comment');
         navigate(`/playlist/${playlistId}/comment`);
     };
@@ -114,25 +98,44 @@ const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, descripti
     const handleEditClick = () => {
         navigate(`edit`);
     }
+    
+    const handlePlayClick = () => {
+        const googleAccessToken = getGoogleToken();
+        if (googleAccessToken) {
+            const response = createYoutubePlaylist({
+                googleAccessToken: googleAccessToken,
+                playlistData: {
+                    playlistName: playlistName,
+                    description: description
+                }
+            })
+        } else {
+            googleLogin();
+        }
+    }
 
     return (
         <PlaylistItemContainer>
+
             <UserName>{userName}</UserName>
             <PlaylistImgContainer>
                 <PlaylistImg src={thumbnail} />
                 <EditButton onClick={handleEditClick}/>
             </PlaylistImgContainer>
+            <PlaylistImg src={thumbnail} />
+
             <PlaylistInfoContainer>
                 <PlaylistName>{playlistName}</PlaylistName>
                 <Description>{description}</Description>
             </PlaylistInfoContainer>
+
             {!comment ? (
                 <IconContainer>
                     <ThumbsContainer onClick={handleThumbsClick}>
                         {isThumbsup ? <ThumbsFillOnSvg /> : <ThumbsFillOffSvg />}
                         <ThumbsCount>{thumbs}</ThumbsCount>
                     </ThumbsContainer>
-                    <PlayCircleSvg />
+                    <PlayCircleSvg onClick={handlePlayClick} />
                     <CommentsContainer onClick={handleCommentsClick}>
                         <ChatSvg />
                         <CommentsCount>{comments}</CommentsCount>

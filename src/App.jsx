@@ -10,6 +10,7 @@ import DeleteUserPage from './pages/profile/DeleteUserPage';
 import DeleteCompletePage from './pages/profile/DeleteCompletePage';
 import CreatePlaylistPage from './pages/playlist/CreatePlaylistPage';
 import EditPlaylistPage from './pages/playlist/EditPlaylistPage';
+import AuthPage from './pages/auth/AuthPage';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ function App() {
           <Route path="/profile/my/delete/complete" element={<DeleteCompletePage />} />
           <Route path="/playlist/create" element={<CreatePlaylistPage />} />
           <Route path="/playlist/:playlistId/edit" element={<EditPlaylistPage />} />
+          <Route path="/auth" element={<AuthPage />} />
         </Routes>
       </ContentWrapper>
     </BrowserRouter>
