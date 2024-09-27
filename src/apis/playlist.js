@@ -14,6 +14,16 @@ export const getPlaylistById = async ({playlistId, setData}) => {
 
 }
 
+export const updatePlaylistThumbs = async ({ playlistId, userId }) => {
+    try {
+        const response = await Server.patch(`playlist?id=${playlistId}&userId=${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to update thumbs count:', error.response ? error.response.data : error);
+        throw error;
+    }
+};
+
 export const postPlaylist = async ({
     formData
 }) => {

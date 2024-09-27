@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import SongItem from "../../components/SongItem";
 import PlaylistItem from "../../components/PlaylistItem";
 import styled from "styled-components";
-import { getPlaylistById } from "../../apis/playlist";
+import { getPlaylistById, updatePlaylistThumbs } from "../../apis/playlist";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -36,6 +36,22 @@ const ViewPlaylistPage = () => {
       getPlaylistById({playlistId: playlistId, setData: setPlaylistData});
     }, [playlistId]);
 
+    const handleThumbsup = async () => {
+      const response = await updatePlaylistThumbs({
+        playlistId: playlistId,
+        userId: 3
+      });
+      console.log(response)
+      setPlaylistData(prev => ({
+        ...prev,
+        playlist: {
+          ...prev.playlist,
+          isThumbsup: response.isThumbsUp,
+          thumbs: response.thumbs
+        }
+      }))
+    }
+
     return (
         <Wrapper>
           {playlistData && (
@@ -47,9 +63,11 @@ const ViewPlaylistPage = () => {
                   playlistName={playlistData.playlist.playlistName}
                   description={playlistData.playlist.description}
                   thumbs={playlistData.playlist.thumbs}
+                  isThumbsup={playlistData.playlist.isThumbsup}
                   comments={playlistData.playlist.comments}
                   thumbnail={playlistData.playlist.thumbnail}
                   comment={false}
+                  handleThumbsClick={handleThumbsup}
                 />
               </PlayListWrapper>
               <SongContainer>
