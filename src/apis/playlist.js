@@ -8,10 +8,15 @@ export const getPlaylistList = async ({
     setData(response.data);
 }
 
-export const getPlaylistById = async ({
-    playlistId, setData
-}) => {
+export const getPlaylistById = async ({playlistId, setData}) => {
     const response = await Server.get(`playlist?id=${playlistId}`);
     setData(response.data);
 
+}
+
+export const postPlaylist = async ({
+    formData
+}) => {
+    const response = await Server.post('playlist', formData);
+    return response.data;
 }

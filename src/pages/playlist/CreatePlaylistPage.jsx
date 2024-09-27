@@ -7,6 +7,8 @@ import { getSearchResult } from "../../apis/provider";
 
 import SearchSongItem from "../../components/SearchSongItem";
 import SelectedSongItem from "../../components/SelectedSongItem";
+import { useNavigate } from "react-router-dom";
+import { postPlaylist } from "../../apis/playlist";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -30,7 +32,19 @@ const CreateWrapper = styled.div`
     max-width: 425px;
     box-sizing: border-box;
 `
-const CreateButton = styled.div`
+const CreateButton = styled.button`
+    font-family: "Galmuri9";
+    color: #222222;
+    font-size: 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: #11FFDA;
+    border-radius: 8px;
+    text-align: center;
+    padding: 20px 0 20px 0;
+`
+const DisabledCreateButton = styled.div`
     font-family: "Galmuri9";
     color: white;
     font-size: 16px;
@@ -92,10 +106,31 @@ const SelectedSongContainer = styled.div`
 `
 
 const CreatePlaylistPage = () => {
+    const navigate = useNavigate();
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
     const [searchParam, setSearchParam] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [selectedSongs, setSelectedSongs] = useState([]);
-    
+
+    const formData = {
+        "playlist": {
+            "userId": 3,
+            "playlistName": title,
+            "description": description,
+        },
+        "songs": selectedSongs.map((item) => {
+            return {
+                "title": item.title,
+                "artist": item.author,
+                "videoId": item.videoId,
+                "thumbnail": item.thumbnail,
+                "duration": item.duration,
+            }
+        })
+    }
+
     const handleSearch = () => {
         getSearchResult({ keyword: searchParam, setData: setSearchResults });
     }
@@ -110,6 +145,11 @@ const CreatePlaylistPage = () => {
         setSelectedSongs(temp);
     }
 
+    const handleSubmit = async () => {
+        const playlistId = await postPlaylist({formData: formData});
+        navigate(`/playlist/${playlistId}`);
+    }
+
     return (
         <Wrapper>
             <LogoWrapper>
@@ -120,12 +160,14 @@ const CreatePlaylistPage = () => {
             <CreateInputContainer>
                 <CreateInput 
                     placeholder="제목"
+                    onChange={(e) => setTitle(e.target.value)}
                 />
             </CreateInputContainer>
 
             <CreateInputContainer>
                 <CreateInput 
                     placeholder="설명"
+                    onChange={(e) => setDescription(e.target.value)}
                 />
             </CreateInputContainer>
 
@@ -167,7 +209,11 @@ const CreatePlaylistPage = () => {
             )}
 
             <CreateWrapper>
-                <CreateButton>작성하기</CreateButton>
+                {title && description && selectedSongs.length > 0 ? (
+                    <CreateButton onClick={handleSubmit}>작성하기</CreateButton>
+                ) : (
+                    <DisabledCreateButton>작성하기</DisabledCreateButton>
+                )}
             </CreateWrapper>
         </Wrapper>
     );
