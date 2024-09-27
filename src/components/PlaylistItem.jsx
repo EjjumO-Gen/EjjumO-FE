@@ -4,9 +4,9 @@ import ThumbsFillOffSvg from "../assets/images/thumbs_FillOff.svg?react";
 import ThumbsFillOnSvg from "../assets/images/thumbs_FillOn.svg?react";
 import ChatSvg from "../assets/images/chat.svg?react";
 import PlayCircleSvg from "../assets/images/play_circle.svg?react";
+import EditButtonSvg from "../assets/images/edit_button.svg?react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { getPlaylistById, updatePlaylistThumbs } from "../apis/playlist";
 
 const PlaylistItemContainer = styled.div`
     display: flex;
@@ -32,6 +32,17 @@ const UserName = styled.span`
     font-size: 16px;
     text-align: center;
     margin-bottom: 12px;
+`
+const PlaylistImgContainer = styled.div`
+    position: relative;
+    width: 200px;
+    height: 200px;
+`
+const EditButton = styled(EditButtonSvg)`
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    cursor: pointer;
 `
 const PlaylistImg = styled.img`
     width: 200px;
@@ -95,15 +106,22 @@ const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, descripti
     //     }
     // };
 
-    const handleCommentsClick = () =>{
+    const handleCommentsClick = () => {
         // navigate('/playlist/:playlistId/comment');
         navigate(`/playlist/${playlistId}/comment`);
     };
 
+    const handleEditClick = () => {
+        navigate(`edit`);
+    }
+
     return (
         <PlaylistItemContainer>
             <UserName>{userName}</UserName>
-            <PlaylistImg src={thumbnail} />
+            <PlaylistImgContainer>
+                <PlaylistImg src={thumbnail} />
+                <EditButton onClick={handleEditClick}/>
+            </PlaylistImgContainer>
             <PlaylistInfoContainer>
                 <PlaylistName>{playlistName}</PlaylistName>
                 <Description>{description}</Description>
