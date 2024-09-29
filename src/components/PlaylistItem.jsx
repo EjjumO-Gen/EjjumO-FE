@@ -102,7 +102,6 @@ const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, descripti
                 <PlaylistImg src={thumbnail} />
                 <EditButton onClick={handleEditClick}/>
             </PlaylistImgContainer>
-            <PlaylistImg src={thumbnail} />
 
             <PlaylistInfoContainer>
                 <PlaylistName>{playlistName}</PlaylistName>

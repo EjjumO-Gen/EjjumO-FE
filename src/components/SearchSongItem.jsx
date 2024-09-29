@@ -1,13 +1,22 @@
 // SongItem.jsx
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import AddCircleSvg from "../assets/images/add_circle.svg?react";
+
+const SongItemWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+`
 
 const SongItemContainer = styled(Link)`
     display: flex;
-    margin-bottom: 16px;
     flex-direction: row;
     text-decoration: none;
     color: white;
+    align-items: center;
 `
 const Thumbnail = styled.img`
     width: 50px;
@@ -37,20 +46,27 @@ const Duration = styled.span`
 const Separator = styled.span`
     margin: 0 4px; // 양쪽에 8px 마진
 `
+const AddButton = styled(AddCircleSvg)`
+    cursor: pointer;
+    padding: 8px;
+`
 
-const SearchSongItem = ({ title, artist, thumbnail, duration }) => {
+const SearchSongItem = ({ title, artist, thumbnail, duration, handleClick }) => {
     return (
-        <SongItemContainer>
-            <Thumbnail src={thumbnail}/>
-            <SongInfo>
-                <Title>{title}</Title>
-                <SongDetail>
-                    <Artist>{artist}</Artist>
-                    <Separator>・</Separator>
-                    <Duration>{duration}</Duration>
-                </SongDetail>
-            </SongInfo>
-        </SongItemContainer>
+        <SongItemWrapper>
+            <SongItemContainer>
+                <Thumbnail src={thumbnail}/>
+                <SongInfo>
+                    <Title>{title}</Title>
+                    <SongDetail>
+                        <Artist>{artist}</Artist>
+                        <Separator>・</Separator>
+                        <Duration>{duration}</Duration>
+                    </SongDetail>
+                </SongInfo>
+            </SongItemContainer>
+            <AddButton onClick={handleClick} />
+        </SongItemWrapper>
     );
 };
 

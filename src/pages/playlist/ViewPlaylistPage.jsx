@@ -38,6 +38,7 @@ const Loading = styled.div`
   position: absolute;
   width: 100%;
   height: 100vh;
+  z-index: 10;
 `
 
 const messages = [
