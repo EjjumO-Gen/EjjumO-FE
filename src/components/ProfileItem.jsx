@@ -10,7 +10,6 @@ const ProfileItemContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-right: 16px;
     cursor: pointer;
 `
 const ProfilePic = styled.img`
