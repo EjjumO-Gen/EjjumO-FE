@@ -8,6 +8,7 @@ import { getPlaylistById, updatePlaylistThumbs } from "../../apis/playlist";
 import { googleLogin } from "../../apis/auth";
 import { getGoogleToken } from "../../utils/token";
 import { addSongToPlaylist, createYoutubePlaylist } from "../../apis/provider";
+import { usePlaylistIdStore } from "../../store/playlist";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -50,7 +51,12 @@ const messages = [
 const ViewPlaylistPage = () => {
     const navigate = useNavigate();
     const {playlistId} = useParams();
+    const pId = usePlaylistIdStore((state) => state.playlistId);
+    const setPlaylistId = usePlaylistIdStore((state) => state.setPlaylistId);
 
+    useEffect(() => {
+      console.log(pId);
+    })
     const [playlistData, setPlaylistData] = useState({
       "playlist": {},
       "songs": []
@@ -106,6 +112,8 @@ const ViewPlaylistPage = () => {
 
           window.open(`https://www.youtube.com/playlist?list=${youtubePlaylistId}`, '_blank');
         } else {
+          setPlaylistId(parseInt(playlistId));
+          console.log(pId)
           googleLogin();
         }
       }

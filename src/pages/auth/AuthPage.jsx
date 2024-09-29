@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { usePlaylistIdStore } from "../../store/playlist";
 
 const AuthPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const playlistId = usePlaylistIdStore((state) => state.playlistId);
     
     useEffect(() => {
         const hash = location.hash;
@@ -13,8 +15,8 @@ const AuthPage = () => {
         if (accessToken) {
             sessionStorage.setItem("googleAccessToken", accessToken);
         }
-
-        navigate("/playlist/22")
+        console.log(playlistId);
+        navigate(`/playlist/${playlistId}`);
     }, [location])
 
     return (
