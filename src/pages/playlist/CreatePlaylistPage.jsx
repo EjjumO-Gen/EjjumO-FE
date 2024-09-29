@@ -195,12 +195,13 @@ const CreatePlaylistPage = () => {
             {searchResults.length > 0 && (
                 <SearchResultsContainer>
                     {searchResults.map((item) => (
-                        <div key={item.videoId} onClick={() => handleSelectSong(item)} >
+                        <div key={item.videoId} >
                             <SearchSongItem
                                 title={item.title}
                                 artist={item.author}
                                 thumbnail={item.thumbnail}
                                 duration={item.duration}
+                                handleClick={() => handleSelectSong(item)}
                             />
                         </div>
                     ))}

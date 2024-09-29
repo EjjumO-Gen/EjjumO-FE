@@ -8,6 +8,7 @@ import EditButtonSvg from "../assets/images/edit_button.svg?react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+
 const PlaylistItemContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -82,57 +83,40 @@ const CommentsContainer = styled.div`
     margin-top: 8px;
 `
 
-const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, description, thumbs, isThumbsup, comments, comment, handleThumbsClick }) => {
+const PlaylistItem = ({ playlistId, userName, thumbnail, playlistName, description, thumbs, isThumbsup, comments, comment, handleThumbsClick, handlePlayClick }) => {
     const navigate = useNavigate();
-    // const [isThumbsUp, setIsThumbsUp] = useState(false);
-    // const [thumbsCount, setThumbsCount] = useState(thumbs);
 
-    // useEffect(() => {
-    //     const fetchPlaylist = async () => {
-    //         const data = { isThumbsUp: false, thumbs: 99};
-    //         setIsThumbsUp(data.isThumbsUp);
-    //         setThumbsCount(data.thumbs);
-    //     }
-    //     fetchPlaylist();
-    // }, [playlistId]);
-
-    // const handleThumbsClick = async () => {
-    //     try {
-    //         const newThumbsData = { isThumbsUp: !isThumbsUp, thumbs: isThumbsUp ? thumbsCount - 1 : thumbsCount + 1 };
-    //         setIsThumbsUp(newThumbsData.isThumbsUp);
-    //         setThumbsCount(newThumbsData.thumbs);
-    //     } catch (error) {
-    //         console.error('Error updating thumbs:', error);
-    //     }
-    // };
-
-    const handleCommentsClick = () => {
-        // navigate('/playlist/:playlistId/comment');
+    const handleCommentsClick = () =>{
         navigate(`/playlist/${playlistId}/comment`);
     };
 
     const handleEditClick = () => {
         navigate(`edit`);
     }
-
+    
     return (
         <PlaylistItemContainer>
+
             <UserName>{userName}</UserName>
             <PlaylistImgContainer>
                 <PlaylistImg src={thumbnail} />
                 <EditButton onClick={handleEditClick}/>
             </PlaylistImgContainer>
+
             <PlaylistInfoContainer>
                 <PlaylistName>{playlistName}</PlaylistName>
                 <Description>{description}</Description>
             </PlaylistInfoContainer>
+
             {!comment ? (
                 <IconContainer>
                     <ThumbsContainer onClick={handleThumbsClick}>
                         {isThumbsup ? <ThumbsFillOnSvg /> : <ThumbsFillOffSvg />}
                         <ThumbsCount>{thumbs}</ThumbsCount>
                     </ThumbsContainer>
-                    <PlayCircleSvg />
+
+                    <PlayCircleSvg onClick={handlePlayClick} />
+
                     <CommentsContainer onClick={handleCommentsClick}>
                         <ChatSvg />
                         <CommentsCount>{comments}</CommentsCount>
