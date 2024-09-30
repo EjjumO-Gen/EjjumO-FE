@@ -35,6 +35,7 @@ const Loading = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   position: absolute;
   width: 100%;

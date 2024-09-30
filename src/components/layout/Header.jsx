@@ -18,6 +18,7 @@ const Container = styled.div`
   max-width: 425px;
   z-index: 10;
   background-color: ${(props) => props.$bgColor};
+  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
 `
 
