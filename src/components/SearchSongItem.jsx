@@ -5,18 +5,17 @@ import AddCircleSvg from "../assets/images/add_circle.svg?react";
 
 const SongItemWrapper = styled.div`
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 16px;
+    width: 100%;
 `
-
 const SongItemContainer = styled(Link)`
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    width: calc(100% - 40px);
     text-decoration: none;
     color: white;
-    align-items: center;
 `
 const Thumbnail = styled.img`
     width: 50px;
@@ -27,9 +26,14 @@ const Thumbnail = styled.img`
 const SongInfo = styled.div`
     flex-direction: column;
     margin-left: 14px;
+    width: calc(100% - 100px);
 `;
 const Title = styled.span`
     font-size: 16px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `
 const SongDetail = styled.span`
     display: flex;
@@ -38,10 +42,16 @@ const SongDetail = styled.span`
 const Artist = styled.span`
     font-size: 14px;
     color: gray;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `
 const Duration = styled.span`
     font-size: 14px;
     color: gray;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `
 const Separator = styled.span`
     margin: 0 4px; // 양쪽에 8px 마진
