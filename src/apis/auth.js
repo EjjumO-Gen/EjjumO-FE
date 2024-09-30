@@ -1,6 +1,6 @@
 export const googleLogin = async () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const redirectUri = 'http://localhost:5173/auth';  // 구글 로그인 후 돌아올 URL
+    const redirectUri = import.meta.env.VITE_GOOGLE_REDIRECT_URI;  // 구글 로그인 후 돌아올 URL
     const scope = 'https://www.googleapis.com/auth/youtube';
     const includeGrantedScopes = 'true';
     const state = 'pass-through value';
