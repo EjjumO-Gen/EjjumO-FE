@@ -6,6 +6,7 @@ import PlaylistItem from "../../components/PlaylistItem";
 import CommentItem from "../../components/CommentItem";
 import CommentAdd from "../../components/CommentAdd";
 import { getCommentByPlaylistId } from "../../apis/comment";
+import { getUserById } from "../../apis/user";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -50,9 +51,13 @@ const CommentPage = () => {
     "playlist": {},
     "comments": []
   });
+  const [userData, setUserData] = useState({
+    "user": {}
+  });
 
   useEffect(() => {
     getCommentByPlaylistId({ playlistId: playlistId, setData: setCommentData });
+    getUserById({ userId: 3, setData: setUserData});
   }, [playlistId]);
 
   return (
@@ -86,7 +91,7 @@ const CommentPage = () => {
           </CommentContainer>
           <CommentWrapper>
             <CommentAdd
-              profilePic={commentData.comments[0]?.profilePic}
+              profilePic={userData.user.profilePic}
               playlistId={playlistId}
               setCommentData={setCommentData}
             />
